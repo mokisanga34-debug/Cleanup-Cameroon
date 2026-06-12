@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CleanUp Cameroon — Fight Plastic & Waste Together</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --ocean: #0a2540;
+  --teal:  #00b4a6;
+  --sand:  #f5e6c8;
+  --coral: #ff6b35;
+  --white: #f8fafc;
+  --muted: #64748b;
+  --card:  #ffffff;
+  --border:#e2e8f0;
+  --danger:#ef4444;
+  --success:#22c55e;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  font-family:'Inter',sans-serif;
+  background:var(--white);
+  color:var(--ocean);
+  overflow-x:hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,37,64,0.97);
+  backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:60px;
+  border-bottom:1px solid rgba(0,180,166,0.2);
+}
+
+.nav-logo {
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;
+  color:var(--teal);letter-spacing:0.02em;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-logo span{color:var(--white);}
+
+.nav-links {
+  display:flex;gap:6px;
+}
+
+.nav-link {
+  padding:6px 14px;border-radius:20px;
+  font-size:0.78rem;font-weight:500;
+  color:rgba(255,255,255,0.7);
+  cursor:pointer;border:none;background:transparent;
+  transition:all 0.2s;letter-spacing:0.02em;
+}
+.nav-link:hover{color:var(--teal);}
+.nav-link.active{background:rgba(0,180,166,0.15);color:var(--teal);}
+
+/* ── SECTIONS ── */
+.section { display:none; padding-top:60px; min-height:100vh; }
+.section.active { display:block; }
+
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+.hero {
+  background: linear-gradient(135deg, var(--ocean) 0%, #0d3b6e 60%, #0a4a44 100%);
+  min-height: calc(100vh - 60px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 5% 80px;
+  position:relative;overflow:hidden;
+}
+
+/* Animated plastic particles */
+.particles { position:absolute;inset:0;pointer-events:none;overflow:hidden; }
+.particle {
+  position:absolute;
+  border-radius:2px;
+  opacity:0.12;
+  animation: drift linear infinite;
+}
+@keyframes drift {
+  0%   { transform: translateY(100vh) rotate(0deg); }
+  100% { transform: translateY(-20px) rotate(360deg); }
+}
+
+.hero-eyebrow {
+  font-family:'Syne',sans-serif;font-size:0.7rem;
+  letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:16px;
+}
+
+.hero-title {
+  font-family:'Syne',sans-serif;font-size:clamp(2.4rem,6vw,4.2rem);
+  font-weight:800;color:var(--white);text-align:center;
+  line-height:1.1;max-width:720px;margin-bottom:20px;
+}
+.hero-title em { color:var(--teal);font-style:normal; }
+
+.hero-sub {
+  font-size:1rem;color:rgba(255,255,255,0.6);
+  text-align:center;max-width:520px;line-height:1.7;margin-bottom:40px;
+}
+
+.hero-stats {
+  display:flex;gap:40px;margin-bottom:48px;flex-wrap:wrap;justify-content:center;
+}
+.stat { text-align:center; }
+.stat-num {
+  font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;
+  color:var(--teal);display:block;
+}
+.stat-label { font-size:0.72rem;color:rgba(255,255,255,0.5);letter-spacing:0.08em; }
+
+.hero-btns { display:flex;gap:12px;flex-wrap:wrap;justify-content:center; }
+
+.btn-primary {
+  padding:13px 28px;border-radius:6px;
+  background:var(--teal);color:var(--ocean);
+  font-weight:700;font-size:0.88rem;border:none;cursor:pointer;
+  transition:transform 0.15s,box-shadow 0.15s;letter-spacing:0.02em;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,180,166,0.4);}
+
+.btn-outline {
+  padding:13px 28px;border-radius:6px;
+  background:transparent;color:var(--white);
+  font-weight:600;font-size:0.88rem;
+  border:1.5px solid rgba(255,255,255,0.25);cursor:pointer;
+  transition:border-color 0.2s,color 0.2s;
+}
+.btn-outline:hover{border-color:var(--teal);color:var(--teal);}
+
+/* ── SCROLL TICKER ── */
+.ticker {
+  background:var(--teal);padding:10px 0;overflow:hidden;
+  white-space:nowrap;
+}
+.ticker-inner {
+  display:inline-block;
+  animation: ticker 25s linear infinite;
+  font-family:'Syne',sans-serif;font-size:0.72rem;
+  font-weight:700;letter-spacing:0.15em;color:var(--ocean);
+}
+@keyframes ticker {
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+
+/* ── FEATURE GRID ── */
+.features {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;padding:60px 5%;max-width:1100px;margin:0 auto;
+}
+
+.feature-card {
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:28px 24px;
+  cursor:pointer;transition:all 0.2s;
+  position:relative;overflow:hidden;
+}
+.feature-card::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--teal);transform:scaleX(0);transform-origin:left;
+  transition:transform 0.3s;
+}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.1);}
+.feature-card:hover::before{transform:scaleX(1);}
+
+.feature-icon { font-size:2rem;margin-bottom:12px; }
+.feature-title {
+  font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;
+  margin-bottom:8px;color:var(--ocean);
+}
+.feature-desc { font-size:0.82rem;color:var(--muted);line-height:1.6; }
+
+/* ══════════════════════════════════
+   REPORT SECTION
+══════════════════════════════════ */
+#report { background:#f8fafc;padding-top:60px; }
+
+.page-header {
+  background:var(--ocean);padding:48px 5% 40px;
+  display:flex;flex-direction:column;align-items:center;
+}
+.page-header h2 {
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(1.6rem,4vw,2.4rem);color:var(--white);
+  margin-bottom:8px;
+}
+.page-header p { color:rgba(255,255,255,0.6);font-size:0.9rem;text-align:center; }
+
+.report-layout {
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:28px;padding:40px 5%;max-width:1100px;margin:0 auto;
+}
+
+@media(max-width:700px){
+  .report-layout{grid-template-columns:1fr;}
+  .hero-stats{gap:24px;}
+  nav .nav-link{padding:5px 8px;font-size:0.7rem;}
+}
+
+.form-card {
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:28px;
+}
+.form-card h3 {
+  font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;
+  margin-bottom:20px;color:var(--ocean);
+  padding-bottom:12px;border-bottom:2px solid var(--teal);
+  display:inline-block;
+}
+
+.form-group { margin-bottom:16px; }
+.form-group label {
+  display:block;font-size:0.78rem;font-weight:600;
+  color:var(--ocean);margin-bottom:5px;letter-spacing:0.03em;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width:100%;padding:10px 12px;border:1.5px solid var(--border);
+  border-radius:6px;font-family:'Inter',sans-serif;font-size:0.85rem;
+  color:var(--ocean);background:var(--white);
+  transition:border-color 0.2s;outline:none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color:var(--teal); }
+.form-group textarea { resize:vertical;min-height:80px; }
+
+.submit-btn {
+  width:100%;padding:12px;background:var(--teal);color:var(--ocean);
+  font-weight:700;font-size:0.9rem;border:none;border-radius:6px;
+  cursor:pointer;transition:opacity 0.2s;letter-spacing:0.03em;
+}
+.submit-btn:hover{opacity:0.85;}
+
+/* Reports feed */
+.reports-feed h3 {
+  font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;
+  margin-bottom:16px;color:var(--ocean);
+  padding-bottom:12px;border-bottom:2px solid var(--coral);
+  display:inline-block;
+}
+
+.report-item {
+  background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:16px;margin-bottom:12px;
+  border-left:4px solid var(--coral);
+}
+.report-item-top {
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:6px;
+}
+.report-location {
+  font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;
+  color:var(--ocean);
+}
+.report-badge {
+  font-size:0.65rem;font-weight:700;letter-spacing:0.08em;
+  padding:3px 8px;border-radius:20px;text-transform:uppercase;
+}
+.badge-critical{background:#fee2e2;color:var(--danger);}
+.badge-moderate{background:#fef3c7;color:#d97706;}
+.badge-low{background:#d1fae5;color:#065f46;}
+
+.report-desc{font-size:0.8rem;color:var(--muted);line-height:1.5;margin-bottom:8px;}
+.report-meta{font-size:0.72rem;color:#94a3b8;display:flex;gap:12px;}
+
+/* ══════════════════════════════════
+   LEARN SECTION
+══════════════════════════════════ */
+#learn { background:var(--white);padding-top:60px; }
+
+.learn-grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;padding:40px 5%;max-width:1100px;margin:0 auto;
+}
+
+.learn-card {
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;
+  transition:transform 0.2s,box-shadow 0.2s;cursor:pointer;
+}
+.learn-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.1);}
+
+.learn-card-top {
+  height:120px;display:flex;align-items:center;justify-content:center;
+  font-size:3rem;
+}
+.learn-card-body{padding:20px;}
+.learn-card-eyebrow{
+  font-size:0.65rem;font-weight:700;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:6px;
+}
+.learn-card-title{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;
+  margin-bottom:8px;color:var(--ocean);
+}
+.learn-card-text{font-size:0.82rem;color:var(--muted);line-height:1.6;}
+
+.fact-bar {
+  background:var(--ocean);color:var(--white);
+  padding:32px 5%;text-align:center;
+}
+.fact-bar h3{
+  font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;
+  color:var(--teal);margin-bottom:6px;
+}
+.fact-bar p{font-size:0.85rem;color:rgba(255,255,255,0.6);}
+
+.quiz-section{
+  max-width:600px;margin:40px auto;padding:0 5%;
+}
+.quiz-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:28px;
+}
+.quiz-card h3{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;
+  margin-bottom:20px;color:var(--ocean);
+}
+.quiz-q{font-weight:600;font-size:0.9rem;margin-bottom:12px;color:var(--ocean);}
+.quiz-options{display:flex;flex-direction:column;gap:8px;}
+.quiz-opt{
+  padding:10px 14px;border:1.5px solid var(--border);
+  border-radius:6px;cursor:pointer;font-size:0.85rem;
+  transition:all 0.15s;background:var(--white);color:var(--ocean);
+  text-align:left;
+}
+.quiz-opt:hover{border-color:var(--teal);background:#f0fdfc;}
+.quiz-opt.correct{border-color:var(--success);background:#f0fdf4;color:#166534;}
+.quiz-opt.wrong{border-color:var(--danger);background:#fef2f2;color:#991b1b;}
+.quiz-feedback{
+  margin-top:14px;padding:12px;border-radius:6px;
+  font-size:0.85rem;display:none;
+}
+.quiz-next{
+  margin-top:14px;padding:10px 20px;background:var(--teal);
+  color:var(--ocean);font-weight:700;border:none;border-radius:6px;
+  cursor:pointer;display:none;
+}
+
+/* ══════════════════════════════════
+   VOLUNTEER SECTION
+══════════════════════════════════ */
+#volunteer{background:#f8fafc;padding-top:60px;}
+
+.events-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;padding:40px 5%;max-width:1100px;margin:0 auto;
+}
+
+.event-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:22px;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.event-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+
+.event-date{
+  background:var(--teal);color:var(--ocean);
+  display:inline-block;padding:4px 10px;border-radius:4px;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:0.72rem;
+  letter-spacing:0.08em;margin-bottom:10px;
+}
+.event-title{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;
+  margin-bottom:6px;color:var(--ocean);
+}
+.event-loc{font-size:0.78rem;color:var(--muted);margin-bottom:10px;}
+.event-desc{font-size:0.82rem;color:var(--muted);line-height:1.5;margin-bottom:14px;}
+.event-footer{display:flex;justify-content:space-between;align-items:center;}
+.event-spots{font-size:0.75rem;color:var(--muted);}
+.join-btn{
+  padding:8px 16px;background:var(--ocean);color:var(--white);
+  font-weight:600;font-size:0.78rem;border:none;border-radius:5px;
+  cursor:pointer;transition:background 0.2s;
+}
+.join-btn:hover{background:var(--teal);color:var(--ocean);}
+.join-btn.joined{background:var(--success);cursor:default;}
+
+.leaderboard{
+  max-width:500px;margin:0 auto 40px;padding:0 5%;
+}
+.leaderboard h3{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;
+  margin-bottom:16px;color:var(--ocean);text-align:center;
+}
+.lb-item{
+  display:flex;align-items:center;gap:14px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:8px;padding:12px 16px;margin-bottom:8px;
+}
+.lb-rank{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;
+  color:var(--teal);width:28px;text-align:center;
+}
+.lb-rank.gold{color:#f59e0b;}
+.lb-rank.silver{color:#94a3b8;}
+.lb-rank.bronze{color:#cd7c3f;}
+.lb-name{font-weight:600;font-size:0.88rem;flex:1;}
+.lb-points{font-family:'Syne',sans-serif;font-weight:700;color:var(--teal);font-size:0.9rem;}
+
+/* ══════════════════════════════════
+   DATA SECTION
+══════════════════════════════════ */
+#data{background:var(--white);padding-top:60px;}
+
+.data-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;padding:40px 5% 24px;max-width:1100px;margin:0 auto;
+}
+.data-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:20px;text-align:center;
+}
+.data-num{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:2rem;color:var(--teal);display:block;
+  counter-reset: none;
+}
+.data-label{font-size:0.75rem;color:var(--muted);margin-top:4px;}
+.data-change{font-size:0.7rem;margin-top:6px;}
+.up{color:var(--danger);}
+.down{color:var(--success);}
+
+/* Chart area */
+.chart-section{
+  max-width:1100px;margin:0 auto;padding:0 5% 40px;
+  display:grid;grid-template-columns:2fr 1fr;gap:20px;
+}
+@media(max-width:700px){.chart-section{grid-template-columns:1fr;}}
+
+.chart-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:24px;
+}
+.chart-card h3{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;
+  margin-bottom:20px;color:var(--ocean);
+}
+
+canvas { width:100% !important; }
+
+.hotspot-list h3{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;
+  margin-bottom:14px;color:var(--ocean);
+}
+.hotspot-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--border);
+}
+.hotspot-item:last-child{border-bottom:none;}
+.hotspot-name{font-size:0.82rem;font-weight:500;}
+.hotspot-bar-wrap{flex:1;margin:0 10px;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden;}
+.hotspot-bar{height:100%;background:var(--coral);border-radius:3px;}
+.hotspot-count{font-size:0.75rem;color:var(--muted);white-space:nowrap;}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:24px;right:24px;z-index:999;
+  background:var(--ocean);color:var(--white);
+  padding:12px 20px;border-radius:8px;font-size:0.85rem;
+  border-left:4px solid var(--teal);
+  transform:translateY(80px);opacity:0;
+  transition:all 0.3s;pointer-events:none;
+}
+.toast.show{transform:translateY(0);opacity:1;}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🌊 <span>CleanUp</span>Cameroon</div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showSection('home')">Home</button>
+    <button class="nav-link" onclick="showSection('report')">Report</button>
+    <button class="nav-link" onclick="showSection('learn')">Learn</button>
+    <button class="nav-link" onclick="showSection('volunteer')">Volunteer</button>
+    <button class="nav-link" onclick="showSection('data')">Data</button>
+  </div>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ══ HOME ══ -->
+<div class="section active" id="home">
+  <div class="hero">
+    <div class="particles" id="particles"></div>
+    <div class="hero-eyebrow">Coding for the Planet · Cameroon</div>
+    <h1 class="hero-title">
+      Our waste doesn't<br>disappear.<br>
+      <em>But it can stop.</em>
+    </h1>
+    <p class="hero-sub">
+      CleanUp Cameroon connects communities to report waste hotspots, learn about plastic pollution, join cleanups, and track real progress.
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num" id="cnt-reports">0</span><span class="stat-label">ISSUES REPORTED</span></div>
+      <div class="stat"><span class="stat-num" id="cnt-vol">0</span><span class="stat-label">VOLUNTEERS</span></div>
+      <div class="stat"><span class="stat-num" id="cnt-kg">0</span><span class="stat-label">KG WASTE REMOVED</span></div>
+      <div class="stat"><span class="stat-num" id="cnt-cities">0</span><span class="stat-label">CITIES ACTIVE</span></div>
+    </div>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showSection('report')">Report a Waste Site</button>
+      <button class="btn-outline" onclick="showSection('volunteer')">Join a Cleanup</button>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <span class="ticker-inner">
+      🚯 Plastic takes 450 years to decompose &nbsp;·&nbsp; 🐢 1 million seabirds die from plastic yearly &nbsp;·&nbsp; ♻️ Only 9% of plastic ever produced has been recycled &nbsp;·&nbsp; 🌍 Africa generates 17 million tonnes of plastic waste yearly &nbsp;·&nbsp; 💧 Microplastics found in human blood &nbsp;·&nbsp;
+      🚯 Plastic takes 450 years to decompose &nbsp;·&nbsp; 🐢 1 million seabirds die from plastic yearly &nbsp;·&nbsp; ♻️ Only 9% of plastic ever produced has been recycled &nbsp;·&nbsp; 🌍 Africa generates 17 million tonnes of plastic waste yearly &nbsp;·&nbsp; 💧 Microplastics found in human blood &nbsp;·&nbsp;
+    </span>
+  </div>
+
+  <div class="features">
+    <div class="feature-card" onclick="showSection('report')">
+      <div class="feature-icon">📍</div>
+      <div class="feature-title">Report Issues</div>
+      <div class="feature-desc">Spot an illegal dump or waste hotspot? Report it in 30 seconds and put it on the community map.</div>
+    </div>
+    <div class="feature-card" onclick="showSection('learn')">
+      <div class="feature-icon">📚</div>
+      <div class="feature-title">Learn & Educate</div>
+      <div class="feature-desc">Understand the real impact of plastic waste with facts, guides, and a quick quiz.</div>
+    </div>
+    <div class="feature-card" onclick="showSection('volunteer')">
+      <div class="feature-icon">🤝</div>
+      <div class="feature-title">Join Cleanups</div>
+      <div class="feature-desc">Find cleanup events near you, sign up, earn points, and climb the volunteer leaderboard.</div>
+    </div>
+    <div class="feature-card" onclick="showSection('data')">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">Track Progress</div>
+      <div class="feature-desc">See real data on reports, cleanups, and waste removed across Cameroon over time.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REPORT ══ -->
+<div class="section" id="report">
+  <div class="page-header">
+    <h2>📍 Report a Waste Site</h2>
+    <p>Spotted plastic waste, an illegal dump, or a polluted area? Report it here.</p>
+  </div>
+  <div class="report-layout">
+    <div class="form-card">
+      <h3>New Report</h3>
+      <div class="form-group">
+        <label>Location / Neighborhood</label>
+        <input type="text" id="r-location" placeholder="e.g. Molyko, Buea"/>
+      </div>
+      <div class="form-group">
+        <label>Waste Type</label>
+        <select id="r-type">
+          <option>Plastic bottles & packaging</option>
+          <option>Illegal dumping site</option>
+          <option>Open burning of waste</option>
+          <option>Blocked drainage / flooding waste</option>
+          <option>Water body pollution</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Severity</label>
+        <select id="r-severity">
+          <option value="critical">Critical — large site, urgent</option>
+          <option value="moderate">Moderate — medium issue</option>
+          <option value="low">Low — small scattered waste</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="r-desc" placeholder="Describe what you see — size, location details, nearby landmarks..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Your Name (optional)</label>
+        <input type="text" id="r-name" placeholder="Anonymous"/>
+      </div>
+      <button class="submit-btn" onclick="submitReport()">Submit Report</button>
+    </div>
+
+    <div class="reports-feed">
+      <h3>Recent Reports</h3>
+      <div id="reports-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LEARN ══ -->
+<div class="section" id="learn">
+  <div class="page-header">
+    <h2>📚 Learn About Plastic & Waste</h2>
+    <p>Knowledge is the first step toward change.</p>
+  </div>
+
+  <div class="fact-bar">
+    <h3 id="fact-num">8 million</h3>
+    <p id="fact-text">tonnes of plastic enter the ocean every single year — equivalent to dumping a garbage truck every minute.</p>
+  </div>
+
+  <div class="learn-grid">
+    <div class="learn-card">
+      <div class="learn-card-top" style="background:#e0f2fe;">🧴</div>
+      <div class="learn-card-body">
+        <div class="learn-card-eyebrow">The Problem</div>
+        <div class="learn-card-title">Why Plastic Is Destroying Our Planet</div>
+        <div class="learn-card-text">Plastic never truly disappears. It breaks into microplastics that enter soil, water, and the food chain — ending up in our bodies. Single-use plastics are used for minutes but persist for centuries.</div>
+      </div>
+    </div>
+    <div class="learn-card">
+      <div class="learn-card-top" style="background:#fef9c3;">🌍</div>
+      <div class="learn-card-body">
+        <div class="learn-card-eyebrow">Cameroon Context</div>
+        <div class="learn-card-title">Plastic Waste in Cameroon</div>
+        <div class="learn-card-text">Cameroon produces over 300,000 tonnes of plastic waste annually. Less than 5% is formally recycled. Flooding in Douala and Buea is worsened every year by plastic clogging drainage systems.</div>
+      </div>
+    </div>
+    <div class="learn-card">
+      <div class="learn-card-top" style="background:#d1fae5;">♻️</div>
+      <div class="learn-card-body">
+        <div class="learn-card-eyebrow">What You Can Do</div>
+        <div class="learn-card-title">5 Actions That Actually Work</div>
+        <div class="learn-card-text">Refuse single-use bags. Carry a reusable bottle. Buy from bulk markets. Support local waste collectors. Report illegal dumping. Each action multiplied by thousands of people changes cities.</div>
+      </div>
+    </div>
+    <div class="learn-card">
+      <div class="learn-card-top" style="background:#fce7f3;">🐠</div>
+      <div class="learn-card-body">
+        <div class="learn-card-eyebrow">Ocean Impact</div>
+        <div class="learn-card-title">How Waste Reaches the Ocean</div>
+        <div class="learn-card-text">Most ocean plastic doesn't fall from boats — it starts on land. Rain washes street plastic into drains, into rivers, and out to sea. Cleaning streets and drains is ocean conservation.</div>
+      </div>
+    </div>
+    <div class="learn-card">
+      <div class="learn-card-top" style="background:#ede9fe;">💡</div>
+      <div class="learn-card-body">
+        <div class="learn-card-eyebrow">Solutions</div>
+        <div class="learn-card-title">The Circular Economy</div>
+        <div class="learn-card-text">A circular economy designs waste out of the system — products are reused, repaired, and recycled. Young entrepreneurs in Cameroon are already turning plastic waste into building materials and fuel.</div>
+      </div>
+    </div>
+    <div class="learn-card">
+      <div class="learn-card-top" style="background:#fff7ed;">🏥</div>
+      <div class="learn-card-body">
+        <div class="learn-card-eyebrow">Health Impact</div>
+        <div class="learn-card-title">Waste & Human Health</div>
+        <div class="learn-card-text">Open burning of plastic releases dioxins linked to cancer. Waste-clogged drains breed mosquitoes causing malaria. Microplastics have been found in human lungs, blood, and breast milk.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz -->
+  <div class="quiz-section">
+    <div class="quiz-card">
+      <h3>🧠 Quick Knowledge Check</h3>
+      <div id="quiz-container"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VOLUNTEER ══ -->
+<div class="section" id="volunteer">
+  <div class="page-header">
+    <h2>🤝 Join a Cleanup Event</h2>
+    <p>Find events near you, sign up, and make a visible difference.</p>
+  </div>
+
+  <div class="events-grid" id="events-grid"></div>
+
+  <div class="leaderboard">
+    <h3>🏆 Top Volunteers This Month</h3>
+    <div id="leaderboard"></div>
+  </div>
+</div>
+
+<!-- ══ DATA ══ -->
+<div class="section" id="data">
+  <div class="page-header">
+    <h2>📊 Waste Data Dashboard</h2>
+    <p>Real numbers. Real progress. Updated by the community.</p>
+  </div>
+
+  <div class="data-grid">
+    <div class="data-card">
+      <span class="data-num" id="d-reports">247</span>
+      <div class="data-label">Total Reports Filed</div>
+      <div class="data-change up">↑ 18 this week</div>
+    </div>
+    <div class="data-card">
+      <span class="data-num" id="d-cleanups">34</span>
+      <div class="data-label">Cleanups Completed</div>
+      <div class="data-change down">↑ 3 this month</div>
+    </div>
+    <div class="data-card">
+      <span class="data-num" id="d-kg">4,820</span>
+      <div class="data-label">kg Waste Removed</div>
+      <div class="data-change down">↑ 340kg this month</div>
+    </div>
+    <div class="data-card">
+      <span class="data-num" id="d-vol">312</span>
+      <div class="data-label">Active Volunteers</div>
+      <div class="data-change down">↑ 27 new this month</div>
+    </div>
+    <div class="data-card">
+      <span class="data-num">7</span>
+      <div class="data-label">Cities Covered</div>
+      <div class="data-change down">Buea, Douala, Yaoundé +4</div>
+    </div>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-card">
+      <h3>Reports Filed — Last 8 Weeks</h3>
+      <canvas id="chart-reports" height="220"></canvas>
+    </div>
+    <div class="chart-card hotspot-list">
+      <h3>🔥 Worst Hotspots</h3>
+      <div id="hotspots"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── NAVIGATION ──
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx = ['home','report','learn','volunteer','data'].indexOf(id);
+  document.querySelectorAll('.nav-link')[idx].classList.add('active');
+  window.scrollTo(0,0);
+  if (id === 'data') drawChart();
+}
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ── PARTICLES ──
+const pc = document.getElementById('particles');
+const shapes = ['■','▲','●','◆','▬'];
+for (let i = 0; i < 20; i++) {
+  const p = document.createElement('span');
+  p.className = 'particle';
+  p.textContent = shapes[Math.floor(Math.random()*shapes.length)];
+  p.style.cssText = `
+    left:${Math.random()*100}%;
+    font-size:${8+Math.random()*14}px;
+    color:${['#00b4a6','#ff6b35','#f5e6c8'][Math.floor(Math.random()*3)]};
+    animation-duration:${8+Math.random()*14}s;
+    animation-delay:${Math.random()*8}s;
+  `;
+  pc.appendChild(p);
+}
+
+// ── COUNTER ANIMATION ──
+function animateCount(el, target, suffix='') {
+  let start = 0; const dur = 1800;
+  const step = timestamp => {
+    if (!start) start = timestamp;
+    const prog = Math.min((timestamp - start) / dur, 1);
+    const val = Math.floor(prog * target);
+    el.textContent = val.toLocaleString() + suffix;
+    if (prog < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+setTimeout(() => {
+  animateCount(document.getElementById('cnt-reports'), 247);
+  animateCount(document.getElementById('cnt-vol'), 312);
+  animateCount(document.getElementById('cnt-kg'), 4820);
+  animateCount(document.getElementById('cnt-cities'), 7);
+}, 400);
+
+// ── REPORTS ──
+const sampleReports = [
+  { loc:'Molyko Junction, Buea', type:'Illegal dumping site', sev:'critical', desc:'Large pile of household waste dumped near the market entrance. Growing daily.', name:'Jean-Paul M.', time:'2 hours ago' },
+  { loc:'Bonabéri, Douala', type:'Plastic bottles & packaging', sev:'moderate', desc:'Beach area covered in plastic packaging after weekend market. Needs immediate cleanup.', name:'Amina K.', time:'5 hours ago' },
+  { loc:'Biyem-Assi, Yaoundé', type:'Blocked drainage', sev:'critical', desc:'Drainage channel fully blocked with plastic. Last rain caused local flooding.', name:'Anonymous', time:'Yesterday' },
+  { loc:'Great Soppo, Buea', type:'Open burning of waste', sev:'moderate', desc:'Neighbours burning mixed plastic waste every morning around 7am.', name:'Estelle N.', time:'2 days ago' },
+];
+
+function renderReports(list) {
+  const el = document.getElementById('reports-list');
+  el.innerHTML = list.map(r => `
+    <div class="report-item">
+      <div class="report-item-top">
+        <div class="report-location">📍 ${r.loc}</div>
+        <span class="report-badge badge-${r.sev}">${r.sev}</span>
+      </div>
+      <div class="report-desc">${r.type} — ${r.desc}</div>
+      <div class="report-meta">
+        <span>👤 ${r.name}</span><span>🕐 ${r.time}</span>
+      </div>
+    </div>
+  `).join('');
+}
+renderReports(sampleReports);
+
+function submitReport() {
+  const loc  = document.getElementById('r-location').value.trim();
+  const type = document.getElementById('r-type').value;
+  const sev  = document.getElementById('r-severity').value;
+  const desc = document.getElementById('r-desc').value.trim();
+  const name = document.getElementById('r-name').value.trim() || 'Anonymous';
+  if (!loc || !desc) { showToast('⚠️ Please fill in location and description.'); return; }
+  sampleReports.unshift({ loc, type, sev, desc, name, time:'Just now' });
+  renderReports(sampleReports);
+  document.getElementById('r-location').value='';
+  document.getElementById('r-desc').value='';
+  document.getElementById('r-name').value='';
+  showToast('✅ Report submitted! Thank you for taking action.');
+}
+
+// ── QUIZ ──
+const questions = [
+  { q:'How many years does a plastic bottle take to decompose?', opts:['10 years','100 years','450 years','1,000 years'], ans:2, exp:'Plastic bottles take around 450 years to break down — but they never fully disappear, just become microplastics.' },
+  { q:'What percentage of all plastic ever produced has been recycled?', opts:['50%','25%','9%','1%'], ans:2, exp:'Only about 9% of plastic ever produced has been recycled. The rest ends up in landfills, rivers, or the ocean.' },
+  { q:'How much plastic enters the ocean every year?', opts:['1 million tonnes','4 million tonnes','8 million tonnes','20 million tonnes'], ans:2, exp:'About 8 million tonnes of plastic enter the ocean each year — roughly one garbage truck per minute.' },
+  { q:'What is a major local cause of flooding in Cameroonian cities?', opts:['Heavy rainfall only','Deforestation','Plastic waste blocking drains','Rising sea levels'], ans:2, exp:'Plastic waste blocking drainage channels is a key cause of severe urban flooding in cities like Douala and Buea.' },
+];
+let qi = 0, score = 0;
+
+function renderQuiz() {
+  if (qi >= questions.length) {
+    document.getElementById('quiz-container').innerHTML = `
+      <div style="text-align:center;padding:20px 0;">
+        <div style="font-size:2.5rem;margin-bottom:10px;">${score===questions.length?'🏆':score>=2?'👍':'📖'}</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--ocean);margin-bottom:6px;">
+          ${score} / ${questions.length} correct
+        </div>
+        <div style="font-size:0.85rem;color:var(--muted);margin-bottom:16px;">
+          ${score===questions.length?'Perfect score! You know your plastic facts.':score>=2?'Good knowledge — keep learning!':'Check out the cards above to learn more.'}
+        </div>
+        <button class="submit-btn" style="max-width:200px;margin:0 auto;" onclick="qi=0;score=0;renderQuiz()">Try Again</button>
+      </div>`;
+    return;
+  }
+  const q = questions[qi];
+  document.getElementById('quiz-container').innerHTML = `
+    <div style="font-size:0.72rem;color:var(--muted);margin-bottom:8px;">Question ${qi+1} of ${questions.length}</div>
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQuiz(${i})">${o}</button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="qfeedback"></div>
+    <button class="quiz-next" id="qnext" onclick="qi++;renderQuiz()">Next Question →</button>
+  `;
+}
+
+function answerQuiz(i) {
+  const q = questions[qi];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.disabled = true);
+  opts[q.ans].classList.add('correct');
+  const fb = document.getElementById('qfeedback');
+  if (i === q.ans) {
+    score++;
+    fb.style.display='block';fb.style.background='#f0fdf4';fb.style.color='#166534';
+    fb.textContent = '✓ Correct! ' + q.exp;
+  } else {
+    opts[i].classList.add('wrong');
+    fb.style.display='block';fb.style.background='#fef2f2';fb.style.color='#991b1b';
+    fb.textContent = '✗ Not quite. ' + q.exp;
+  }
+  document.getElementById('qnext').style.display='inline-block';
+}
+renderQuiz();
+
+// ── EVENTS ──
+const events = [
+  { date:'SAT 14 JUN', title:'Molyko Market Cleanup', loc:'Molyko, Buea', desc:'Join us to clear plastic waste around the market area. Gloves and bags provided.', spots:8, total:20 },
+  { date:'SUN 15 JUN', title:'Mile 17 Beach Drive', loc:'Mile 17, Buea', desc:'Collecting plastic along the roadside and drainage channels leading to the river.', spots:3, total:15 },
+  { date:'SAT 21 JUN', title:'Bonabéri River Cleanup', loc:'Bonabéri, Douala', desc:'Focus on plastic entering the Wouri river. Boats provided for water cleanup crew.', spots:12, total:30 },
+  { date:'SUN 22 JUN', title:'Biyem-Assi Drain Clear', loc:'Biyem-Assi, Yaoundé', desc:'Clear blocked drainage channels before the next heavy rains. Community leaders joining.', spots:6, total:25 },
+  { date:'SAT 28 JUN', title:'University of Buea Campus', loc:'UB Campus, Buea', desc:'Student-led campus cleanup. All faculties welcome. Certificate of participation issued.', spots:20, total:50 },
+  { date:'SUN 29 JUN', title:'Limbe Beach Cleanup', loc:'Limbe Beach', desc:'Monthly beach cleanup at Limbe. One of the most impactful events of the year.', spots:15, total:40 },
+];
+
+const evGrid = document.getElementById('events-grid');
+events.forEach((e,i) => {
+  const d = document.createElement('div');
+  d.className='event-card';
+  d.innerHTML=`
+    <span class="event-date">${e.date}</span>
+    <div class="event-title">${e.title}</div>
+    <div class="event-loc">📍 ${e.loc}</div>
+    <div class="event-desc">${e.desc}</div>
+    <div class="event-footer">
+      <span class="event-spots">${e.spots} spots left of ${e.total}</span>
+      <button class="join-btn" id="join-${i}" onclick="joinEvent(${i},'${e.title}')">Join</button>
+    </div>`;
+  evGrid.appendChild(d);
+});
+
+function joinEvent(i, title) {
+  const btn = document.getElementById('join-'+i);
+  btn.textContent='✓ Joined!';btn.classList.add('joined');btn.disabled=true;
+  showToast(`🎉 You joined "${title}"! See you there.`);
+}
+
+// ── LEADERBOARD ──
+const lb = [
+  { name:'Amina Kouam', pts:840, rank:'gold' },
+  { name:'Jean-Paul Mbarga', pts:720, rank:'silver' },
+  { name:'Estelle Nkoa', pts:610, rank:'bronze' },
+  { name:'Samuel Tabi', pts:490, rank:'4' },
+  { name:'Fatima Bello', pts:380, rank:'5' },
+];
+document.getElementById('leaderboard').innerHTML = lb.map((l,i)=>`
+  <div class="lb-item">
+    <span class="lb-rank ${l.rank}">${i<3?['🥇','🥈','🥉'][i]:i+1}</span>
+    <span class="lb-name">${l.name}</span>
+    <span class="lb-points">${l.pts} pts</span>
+  </div>`).join('');
+
+// ── HOTSPOTS ──
+const hotspots = [
+  { name:'Molyko Junction', count:42, pct:100 },
+  { name:'Bonabéri Beach', count:38, pct:90 },
+  { name:'Biyem-Assi Drains', count:31, pct:74 },
+  { name:'Mile 17 Roadside', count:24, pct:57 },
+  { name:'UB Campus Area', count:18, pct:43 },
+];
+document.getElementById('hotspots').innerHTML = hotspots.map(h=>`
+  <div class="hotspot-item">
+    <span class="hotspot-name">${h.name}</span>
+    <div class="hotspot-bar-wrap"><div class="hotspot-bar" style="width:${h.pct}%"></div></div>
+    <span class="hotspot-count">${h.count}</span>
+  </div>`).join('');
+
+// ── CHART ──
+let chartDrawn = false;
+function drawChart() {
+  if (chartDrawn) return; chartDrawn = true;
+  const canvas = document.getElementById('chart-reports');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * window.devicePixelRatio || 600;
+  canvas.height = 220 * (window.devicePixelRatio || 1);
+  ctx.scale(window.devicePixelRatio||1, window.devicePixelRatio||1);
+  const W = canvas.offsetWidth || 600, H = 220;
+  const data = [18,24,31,27,38,42,35,47];
+  const labels = ['Apr W1','Apr W2','Apr W3','Apr W4','May W1','May W2','May W3','May W4'];
+  const max = Math.max(...data);
+  const pad = {top:20,right:20,bottom:36,left:40};
+  const cw = W-pad.left-pad.right, ch = H-pad.top-pad.bottom;
+
+  ctx.clearRect(0,0,W,H);
+
+  // Grid
+  ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y=pad.top+ch-(ch/4*i);
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+cw,y);ctx.stroke();
+    ctx.fillStyle='#94a3b8';ctx.font='10px Inter';ctx.textAlign='right';
+    ctx.fillText(Math.round(max/4*i),pad.left-6,y+3);
+  }
+
+  // Bars
+  const bw=(cw/data.length)*0.6, gap=(cw/data.length)*0.4;
+  data.forEach((v,i)=>{
+    const x=pad.left+i*(bw+gap)+gap/2;
+    const bh=(v/max)*ch;
+    const y=pad.top+ch-bh;
+    const grad=ctx.createLinearGradient(0,y,0,y+bh);
+    grad.addColorStop(0,'#00b4a6');grad.addColorStop(1,'rgba(0,180,166,0.3)');
+    ctx.fillStyle=grad;
+    ctx.beginPath();
+    ctx.roundRect(x,y,bw,bh,3);
+    ctx.fill();
+    ctx.fillStyle='#475569';ctx.font='9px Inter';ctx.textAlign='center';
+    ctx.fillText(labels[i],x+bw/2,H-8);
+    ctx.fillStyle='#0a2540';ctx.font='bold 9px Inter';
+    ctx.fillText(v,x+bw/2,y-4);
+  });
+}
+
+// Fact rotator
+const facts = [
+  { num:'8 million', text:'tonnes of plastic enter the ocean every single year — equivalent to dumping a garbage truck every minute.' },
+  { num:'450 years', text:'is how long a single plastic bottle takes to break down in the environment.' },
+  { num:'1 million', text:'seabirds and 100,000 marine animals are killed by plastic pollution every year.' },
+  { num:'Only 9%', text:'of all the plastic ever produced has ever been recycled. The rest is in landfills or our environment.' },
+];
+let fi=0;
+setInterval(()=>{
+  fi=(fi+1)%facts.length;
+  document.getElementById('fact-num').textContent=facts[fi].num;
+  document.getElementById('fact-text').textContent=facts[fi].text;
+},5000);
+</script>
+</body>
+</html>
